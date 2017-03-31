@@ -18,6 +18,7 @@ class Environment {
     initEnv() {
         try {
             process.env.NODE_ENV = process.env.NODE_ENV || 'local';
+            process.env.LOG_LEVEL = process.env.LOG_LEVEL || 'DEBUG'
         } catch (err) {
             console.log('Init Env error:', err);
         }
@@ -27,10 +28,7 @@ class Environment {
         try {
             let log4js = require('log4js');
             this.core.log = log4js.getLogger();
-
-            if (process.env.NODE_ENV !== 'local')
-                this.core.log.setLevel('ERROR');
-
+            this.core.log.setLevel(process.env.LOG_LEVEL);
             this.core.log.info('Init log success');
         } catch (err) {
             console.log('Init Log error:', err);

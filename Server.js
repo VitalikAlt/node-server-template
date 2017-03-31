@@ -11,6 +11,7 @@ class Server extends Environment {
 
     async init() {
         await super.init();
+        this.initErrorHandlers();
         this.initRouteManager();
         this.createServer();
     }
@@ -29,8 +30,22 @@ class Server extends Environment {
         });
     }
 
+    initErrorHandlers() {
+        this.core.errors = require(appRoot + '/routing/ErrorCodes');
+
+        process.on('uncaughtException', (err) => {
+            this.core.log.fatal('uncaughtException', err);
+            process.exit(1);
+        });
+
+        process.on('unhandledRejection', (err) => {
+            this.core.log.fatal('unhandledRejection', err);
+            process.exit(1);
+        })
+    }
+
     get port() {
-        return process.env.NODE_PORT || '8084';
+        return process.env.NODE_PORT || '8080';
     }
 
     get host() {

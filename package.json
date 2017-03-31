@@ -4,6 +4,8 @@
   "description": "node-server-template",
   "main": "Server.js",
   "scripts": {
+    "start": "node --harmony ServerWatcher.js",
+    "server": "node --harmony Server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -1,8 +1,15 @@
-// const watch = require('node-watch');
-// exec = require('child_process').exec;
-// const spawn = require('child_process').spawn;
-//
-// watch('./', { recursive: true }, (evt, name) => {
-//     spawn('node', ['--harmony', 'Server.js'], {stdio: 'inherit'});
-//     console.log(name, ' changed, shutdown server!');
-// });
+"use strict";
+let instance;
+const watch = require('node-watch');
+const spawn = require('child_process').spawn;
+
+let startServer = function () {
+    if (instance) instance.kill();
+    instance = spawn('node', ['--harmony', 'Server.js'], {stdio: 'inherit'});
+};
+
+watch('./', { recursive: true }, (evt, name) => {
+    startServer();
+    console.log(name, ' changed, shutdown server!');
+});
+startServer();
