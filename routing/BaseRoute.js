@@ -12,7 +12,7 @@ class BaseRoute {
             return this.handle();
 
         for (let i = 0; i < this.paramNames.length; i++) {
-            if (!this.params || this.params[this.paramNames[i]] == null) {
+            if (!this.params || this.params[this.paramNames[i]] === undefined) {
                 this.core.log.warn('BAD_PARAMS: no field ', this.paramNames[i]);
                 this.res.writeHead(400);
                 this.res.end(JSON.stringify(this.core.errors['BAD_PARAMS'](this.paramNames[i])));
