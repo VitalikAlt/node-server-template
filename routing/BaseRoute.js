@@ -4,15 +4,15 @@ class BaseRoute {
         this.req = req;
         this.res = res;
         this.params = params;
-        this.checkParams();
+        this.checkParamsAndHandle();
     }
 
-    checkParams() {
+    checkParamsAndHandle() {
         if (!this.paramNames)
             return this.handle();
 
         for (let i = 0; i < this.paramNames.length; i++) {
-            if (!this.params || !this.params[this.paramNames[i]]) {
+            if (!this.params || this.params[this.paramNames[i]] == null) {
                 this.core.log.warn('BAD_PARAMS: no field ', this.paramNames[i]);
                 this.res.writeHead(400);
                 this.res.end(JSON.stringify(this.core.errors['BAD_PARAMS'](this.paramNames[i])));
