@@ -4,12 +4,14 @@ class BaseRoute {
         this.req = req;
         this.res = res;
         this.params = params;
-        this.checkParamsAndHandle();
+
+        if (this.checkParams())
+            this.handle();
     }
 
-    checkParamsAndHandle() {
+    checkParams() {
         if (!this.paramNames)
-            return this.handle();
+            return;
 
         for (let i = 0; i < this.paramNames.length; i++) {
             if (!this.params || this.params[this.paramNames[i]] === undefined) {
@@ -19,8 +21,6 @@ class BaseRoute {
                 return;
             }
         }
-
-        this.handle();
     }
 
     complete(res, err, message) {

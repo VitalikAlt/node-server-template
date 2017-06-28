@@ -1,0 +1,27 @@
+{
+  "name": "server-core",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=7.0.0"
+  },
+  "scripts": {
+    "tests": "export NODE_ENV=test && export LOG_LEVEL=1 && node --harmony ./tasks/tests/test.js",
+    "eslint": "eslint --quiet *"
+
+  },
+  "dependencies": {
+    "js-logger": "git@internal_modules/js-logger/",
+    "config-json": "git@internal_modules/config-json/",
+    "kontagent-api": "git@internal_modules/kontagent-api/",
+    "node-statsd": "0.1.1"
+  },
+  "devDependencies": {
+    "eslint": "3.15.0",
+    "eslint-config-esnext": "1.6.0",
+    "eslint-plugin-async-await": "0.0.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-node": "4.0.1",
+    "mocha": "^3.2.0"
+  }
+}

@@ -1,0 +1,8 @@
+config/*
+doc/*
+frontend/*
+node_modules/*
+*.iml
+
+package.json
+npm-debug.log

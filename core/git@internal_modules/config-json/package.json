@@ -1,0 +1,19 @@
+{
+  "name": "config-json",
+  "version": "1.0.1",
+  "description": "Tool for reading and caching configs.",
+  "main": "./src/Config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "config",
+    "json",
+    "tool"
+  ],
+  "author": "a.gorelov",
+  "engines": {
+    "node": ">=7.0.0"
+  }
+}

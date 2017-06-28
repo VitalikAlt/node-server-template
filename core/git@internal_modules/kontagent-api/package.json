@@ -1,0 +1,22 @@
+{
+  "name": "kontagent-api",
+  "version": "1.0.0",
+  "description": "Api for kontagent request.",
+  "main": "./src/KontagentApi.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "request",
+    "kontagent",
+    "api"
+  ],
+  "author": "a.gorelov",
+  "engines": {
+    "node": ">=7.0.0"
+  },
+  "dependencies": {
+    "slim-request": "../slim-request"
+  }
+}

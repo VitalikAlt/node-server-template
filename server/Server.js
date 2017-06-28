@@ -1,8 +1,4 @@
-'use strict';
-
-global.appRoot = __dirname;
-global.p = console.log;
-const Environment = require(appRoot + '/environment/Environment');
+const Environment = require('./Environment');
 
 class Server extends Environment {
     constructor() {
