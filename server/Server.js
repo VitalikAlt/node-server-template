@@ -1,4 +1,10 @@
+global.appRoot = __dirname + "/..";
+
+const path = require("path");
 const Environment = require('./Environment');
+
+//TODO переделать в отдельный модуль
+const config = require(appRoot + "/utils/configs/Config");
 
 class Server extends Environment {
     constructor() {
@@ -7,37 +13,35 @@ class Server extends Environment {
 
     async init() {
         await super.init();
-        this.initErrorHandlers();
+        this.initConfigs();
         this.initRouteManager();
         this.createServer();
     }
 
+    initConfigs() {
+        try {
+            config.data.database = require(path.join(appRoot, 'config', 'database', `database.${process.env.NODE_ENV}.json`));
+            config.loadListSync(path.join(appRoot, 'config', `${process.env.NODE_ENV}.json`));
+
+            this.log.info('Config initialized.');
+        } catch (e) {
+            this.log.fatal("Error when initialized configs", {err: e});
+            this.exitProcess();
+        }
+    }
+
     initRouteManager() {
         const RouteManager = require(appRoot + '/routing/RouteManager');
-        this.core.routeManager = new RouteManager(this.core);
+        this.routeManager = new RouteManager(this.log);
     }
 
     createServer() {
         const http = require('http');
-        const server = http.createServer((req, res) => this.core.routeManager.handle(req, res));
+        const server = http.createServer((req, res) => this.routeManager.handle(req, res));
 
         server.listen(this.port, () => {
-            this.core.log.info(`Server listening on: ${this.host}:${this.port}`);
+            this.log.info(`Server listening on: ${this.host}:${this.port}`);
         });
-    }
-
-    initErrorHandlers() {
-        this.core.errors = require(appRoot + '/routing/ErrorCodes');
-
-        process.on('uncaughtException', (err) => {
-            this.core.log.fatal('uncaughtException', err);
-            process.exit(1);
-        });
-
-        process.on('unhandledRejection', (err) => {
-            this.core.log.fatal('unhandledRejection', err);
-            process.exit(1);
-        })
     }
 
     get port() {
@@ -45,7 +49,7 @@ class Server extends Environment {
     }
 
     get host() {
-        return process.env.NODE_HOST || '127:0:0:1'
+        return process.env.NODE_HOST || '127.0.0.1'
     }
 }
 

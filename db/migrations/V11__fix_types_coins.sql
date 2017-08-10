@@ -1,0 +1,5 @@
+
+ALTER TABLE users
+DROP COLUMN coins;
+ALTER TABLE users
+ADD COLUMN coins int;

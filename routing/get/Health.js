@@ -1,8 +1,8 @@
 const BaseRoute = require(appRoot + '/routing/BaseRoute');
 
-class Health extends BaseRoute{
-    constructor(core, req, res, params) {
-        super(core, req, res, params);
+class Health extends BaseRoute {
+    constructor(task) {
+        super(task);
     }
 
     handle() {

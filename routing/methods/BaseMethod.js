@@ -2,6 +2,7 @@ class BaseMethod {
     constructor(req, res) {
         this.req = req;
         this.res = res;
+        console.log(this.req.url)
     }
     
     getPathToHandler() {
@@ -11,7 +12,7 @@ class BaseMethod {
         last = last.charAt(0).toUpperCase() + last.substr(1);
         url = url.substr(0, url.lastIndexOf('/') + 1) + last;
 
-        return `/${this.req.method.toLowerCase()}` + url;
+        return `${this.req.method.toLowerCase()}` + url;
     }
 }
 

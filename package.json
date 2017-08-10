@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/VitalikAlt/node-server-template#readme",
   "dependencies": {
-    "log4js": "^1.1.1"
+    "log4js": "1.1.1"
   },
   "devDependencies": {
     "eslint": "3.15.0",

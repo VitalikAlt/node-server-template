@@ -1,8 +1,8 @@
 const BaseRoute = require(appRoot + '/routing/BaseRoute');
 
 class Test extends BaseRoute {
-    constructor(core, req, res, params) {
-        super(core, req, res, params);
+    constructor(task) {
+        super(task);
     }
 
     get paramNames() {

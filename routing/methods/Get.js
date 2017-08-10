@@ -7,6 +7,10 @@ class Get extends BaseMethod {
 
     getRequestParams() {
         let body = {};
+
+        if (this.req.url.lastIndexOf('?') === -1)
+            return [body];
+
         this.req.url = this.req.url.substr(0, this.req.url.lastIndexOf('?'));
         let url = this.req.url.substr(this.req.url.lastIndexOf('?') + 1);
 

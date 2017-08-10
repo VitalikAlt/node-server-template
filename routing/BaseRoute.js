@@ -1,9 +1,9 @@
+const ErrorCodes = require(appRoot + '/routing/ErrorCodes');
+
 class BaseRoute {
-    constructor(core, req, res, params) {
-        this.core = core;
-        this.req = req;
-        this.res = res;
-        this.params = params;
+    constructor(task) {
+        this.task = task;
+        this.params = this.task.params;
 
         if (this.checkParams())
             this.handle();
@@ -11,28 +11,30 @@ class BaseRoute {
 
     checkParams() {
         if (!this.paramNames)
-            return;
+            return true;
 
         for (let i = 0; i < this.paramNames.length; i++) {
-            if (!this.params || this.params[this.paramNames[i]] === undefined) {
-                this.core.log.warn('BAD_PARAMS: no field ', this.paramNames[i]);
-                this.res.writeHead(400);
-                this.res.end(JSON.stringify(this.core.errors['BAD_PARAMS'](this.paramNames[i])));
+            if (!this.task.params || this.task.params[this.paramNames[i]] === undefined) {
+                this.task.log.warn('BAD_PARAMS: no field ', this.paramNames[i]);
+                this.task.res.writeHead(400);
+                this.task.res.end(JSON.stringify(ErrorCodes['BAD_PARAMS'](this.paramNames[i])));
                 return;
             }
         }
+
+        return true;
     }
 
     complete(res, err, message) {
         if (!res) {
-            this.core.log.debug('Send request responce: ', JSON.stringify({err, message}));
-            this.res.writeHead(400);
-            this.res.end(JSON.stringify({err, message}));
+            this.task.log.debug('Send request responce: ', JSON.stringify({err, message}));
+            this.task.res.writeHead(400);
+            this.task.res.end(JSON.stringify({err, message}));
         }
 
-        this.core.log.debug('Send request responce: ', JSON.stringify(res));
-        this.res.writeHead(200);
-        this.res.end(JSON.stringify(res));
+        this.task.log.debug('Send request responce: ', JSON.stringify(res));
+        this.task.res.writeHead(200);
+        this.task.res.end(JSON.stringify(res));
     }
 }
 
